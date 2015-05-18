@@ -1,6 +1,6 @@
 {
   "name": "SMS Helper",
   "description": "Node.js app to send masses of SMSes witht he help of 46elk",
-  "repository": "https://github.com/samuelerdtman/SMSHelper"
+  "repository": "https://github.com/samuelerdtman/SMSHelper",
   "keywords": ["node", "sms"] 
 }
