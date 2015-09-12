@@ -120,7 +120,7 @@ function process(rows, username, password, channel){
 
 function createNumber(url, username, password, callback) {
   console.log("creating number for " + url);
-  request.post("https://api.46elks.com/a1/SMS").type('form').send({
+  request.post("https://api.46elks.com/a1/Numbers").type('form').send({
     country : "se",
     sms_url : url
   }).auth(username.trim(), password.trim()).end(function(err, cres) {
