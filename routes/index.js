@@ -156,7 +156,7 @@ exports.send = function(req, res) {
     var rows = req.body.numbers.split("\n")
 
     if(savedChannel.from == "") {
-      createNumber("https://" + reg.hostname + "/result/" + savedChannel._id , req.body.username, req.body.password, function(error, number) {
+      createNumber("https://" + req.hostname + "/result/" + savedChannel._id , req.body.username, req.body.password, function(error, number) {
         savedChannel.from = number;
         savedChannel.update(function(err, uppdatedChannel) {
           if (err) {
