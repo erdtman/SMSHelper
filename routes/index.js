@@ -128,6 +128,8 @@ function createNumber(url, username, password, callback) {
       return callback(err);
     }
 
+    console.log(cres.text);
+
     if(cres.status != 200) {
      return callback("bad status in response: " + cres.status); 
     }
@@ -154,7 +156,7 @@ exports.send = function(req, res) {
     var rows = req.body.numbers.split("\n")
 
     if(savedChannel.from == "") {
-      createNumber("https://" + reg.hostname + "/result/" + savedChannel._id ,function(error, number) {
+      createNumber("https://" + reg.hostname + "/result/" + savedChannel._id , req.body.username, req.body.password, function(error, number) {
         savedChannel.from = number;
         savedChannel.update(function(err, uppdatedChannel) {
           if (err) {
