@@ -39,7 +39,7 @@ exports.index = function(req, res) {
 };
 
 function send(from, message, reply, username, password) {
-  console.log("sending to " + reply.from);
+  console.log("Sending message '" + message + "'' to " + reply.from + " from " + from);
   request.post("https://api.46elks.com/a1/SMS").type('form').send({
     message : message,
     from : from,
@@ -164,10 +164,13 @@ exports.send = function(req, res) {
           res.send();
           return console.error(err);
         }
+        
+        savedChannel.from = number;
+
         console.log("savedChannel");
         console.log(savedChannel);
 
-        savedChannel.from = number;
+        
         Channel.update({
           _id : savedChannel._id
         }, {
