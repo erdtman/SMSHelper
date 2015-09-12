@@ -181,7 +181,7 @@ exports.send = function(req, res) {
           }
           console.error("uppdatedChannel");
           console.error(uppdatedChannel);
-          process(rows, req.body.username, req.body.password, uppdatedChannel); 
+          //process(rows, req.body.username, req.body.password, uppdatedChannel); 
           res.redirect("/result/" + uppdatedChannel._id); 
         });
       });
