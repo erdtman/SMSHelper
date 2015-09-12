@@ -160,11 +160,11 @@ exports.send = function(req, res) {
           if (err) {
             return console.error(err);
           }
-          process(rows, body.req.username, body.req.password, uppdatedChannel);  
+          process(rows, req.body.username, req.body.password, uppdatedChannel);  
         });
       });
     } else {
-      process(rows, body.req.username, body.req.password, savedChannel);
+      process(rows, req.body.username, req.body.password, savedChannel);
     }
 
     res.redirect("/result/" + savedChannel._id);
