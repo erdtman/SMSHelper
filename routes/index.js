@@ -167,6 +167,7 @@ exports.send = function(req, res) {
         console.log("savedChannel");
         console.log(savedChannel);
 
+        savedChannel.from = number;
         Channel.update({
           _id : savedChannel._id
         }, {
@@ -181,8 +182,8 @@ exports.send = function(req, res) {
           }
           console.error("uppdatedChannel");
           console.error(uppdatedChannel);
-          //process(rows, req.body.username, req.body.password, uppdatedChannel); 
-          res.redirect("/result/" + uppdatedChannel._id); 
+          process(rows, req.body.username, req.body.password, savedChannel); 
+          res.redirect("/result/" + savedChannel._id); 
         });
       });
     } else {
