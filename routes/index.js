@@ -1,7 +1,7 @@
 var request = require('superagent');
 var mongoose = require('mongoose');
 var _ = require('underscore');
-mongoose.connect(process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/test');
+mongoose.connect("mongodb://heroku_app36875731:q6kgjp65041vc6u6koq3rm5icm@ds031912.mongolab.com:31912/heroku_app36875731" || process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/test');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback() {
