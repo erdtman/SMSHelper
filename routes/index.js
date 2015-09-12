@@ -160,6 +160,7 @@ exports.send = function(req, res) {
         savedChannel.from = number;
         savedChannel.update(function(err, uppdatedChannel) {
           if (err) {
+            return console.error("uppdate error");
             return console.error(err);
           }
           process(rows, req.body.username, req.body.password, uppdatedChannel);  
