@@ -39,9 +39,9 @@ exports.index = function(req, res) {
 };
 
 function send(from, message, reply, username, password) {
-  password = password || "";
-  username = username || "";
-  
+  password = password ? password : "";
+  username = username ? username : "";
+
   console.log("Sending message '" + message + "'' to " + reply.from + " from " + from);
   request.post("https://api.46elks.com/a1/SMS").type('form').send({
     message : message,
@@ -81,6 +81,8 @@ var PHONE_NR = 3;
 
 
 function process(rows, username, password, channel) {
+  password = password ? password : "";
+  username = username ? username : "";
   var index = 0;
   var timer = setInterval(function() {
       var row = rows[index++].trim().split(";");
