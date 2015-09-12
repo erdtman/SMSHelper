@@ -81,8 +81,12 @@ var PHONE_NR = 3;
 
 
 function process(rows, username, password, channel) {
+  console.log("b-password " + password);
+  console.log("b-username " + username);
   password = password ? password : "";
   username = username ? username : "";
+  console.log("password " + password);
+  console.log("username " + username);
   var index = 0;
   var timer = setInterval(function() {
       var row = rows[index++].trim().split(";");
