@@ -76,7 +76,7 @@ var P_NR = 2;
 var PHONE_NR = 3;
 
 
-function process(rows, username, password, channel){
+function process(rows, username, password, channel) {
   var index = 0;
   var timer = setInterval(function() {
       var row = rows[index++].trim().split(";");
@@ -179,10 +179,10 @@ exports.send = function(req, res) {
             res.send();
             return console.error(err);
           }
-          console.log("uppdatedChannel");
-          console.log(uppdatedChannel);
+          console.error("uppdatedChannel");
+          console.error(uppdatedChannel);
           process(rows, req.body.username, req.body.password, uppdatedChannel); 
-          res.redirect("/result/" + savedChannel._id); 
+          res.redirect("/result/" + uppdatedChannel._id); 
         });
       });
     } else {
