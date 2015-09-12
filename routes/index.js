@@ -120,8 +120,6 @@ function process(rows, username, password, channel) {
 }
 
 function createNumber(url, username, password, callback) {
-  return callback(false, "123");
-  /*
   console.log("creating number for " + url);
   request.post("https://api.46elks.com/a1/Numbers").type('form').send({
     country : "se",
@@ -140,7 +138,7 @@ function createNumber(url, username, password, callback) {
     var body = JSON.parse(cres.text);
 
     return callback(false, body.number);
-  });*/
+  });
 }
 
 exports.send = function(req, res) {
