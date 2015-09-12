@@ -119,6 +119,8 @@ function process(rows, username, password, channel){
 }
 
 function createNumber(url, username, password, callback) {
+  return callback(false, "123");
+  /*
   console.log("creating number for " + url);
   request.post("https://api.46elks.com/a1/Numbers").type('form').send({
     country : "se",
@@ -137,7 +139,7 @@ function createNumber(url, username, password, callback) {
     var body = JSON.parse(cres.text);
 
     return callback(false, body.number);
-  });
+  });*/
 }
 
 exports.send = function(req, res) {
@@ -166,12 +168,21 @@ exports.send = function(req, res) {
         console.log(savedChannel);
 
         savedChannel.from = number;
-        savedChannel.update(function(err, uppdatedChannel) {
+
+        Channel.update({
+          _id : channels[0]._id
+        }, {
+          $set : {
+            from : number
+          }
+        }, function(err, uppdatedChannel) {
           if (err) {
             res.status(500);
             res.send();
             return console.error(err);
           }
+          console.log("uppdatedChannel");
+          console.log(uppdatedChannel);
           process(rows, req.body.username, req.body.password, uppdatedChannel); 
           res.redirect("/result/" + savedChannel._id); 
         });
