@@ -156,21 +156,30 @@ exports.send = function(req, res) {
     var rows = req.body.numbers.split("\n")
 
     if(savedChannel.from == "") {
-      createNumber("https://" + req.hostname + "/result/" + savedChannel._id , req.body.username, req.body.password, function(error, number) {
+      createNumber("https://" + req.hostname + "/result/" + savedChannel._id , req.body.username, req.body.password, function(err, number) {
+        if(err) {
+          res.status(500);
+          res.send();
+          return console.error(err);
+        }
+        console.log("savedChannel");
+        console.log(savedChannel);
+
         savedChannel.from = number;
         savedChannel.update(function(err, uppdatedChannel) {
           if (err) {
-            return console.error("uppdate error");
+            res.status(500);
+            res.send();
             return console.error(err);
           }
-          process(rows, req.body.username, req.body.password, uppdatedChannel);  
+          process(rows, req.body.username, req.body.password, uppdatedChannel); 
+          res.redirect("/result/" + savedChannel._id); 
         });
       });
     } else {
       process(rows, req.body.username, req.body.password, savedChannel);
+      res.redirect("/result/" + savedChannel._id);
     }
-
-    res.redirect("/result/" + savedChannel._id);
   });
 };
 
