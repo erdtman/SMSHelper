@@ -167,10 +167,8 @@ exports.send = function(req, res) {
         console.log("savedChannel");
         console.log(savedChannel);
 
-        savedChannel.from = number;
-
         Channel.update({
-          _id : channels[0]._id
+          _id : savedChannel._id
         }, {
           $set : {
             from : number
