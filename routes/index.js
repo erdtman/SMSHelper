@@ -49,7 +49,8 @@ function send(from, message, reply, username, password) {
       return console.error(err);
     }
 
-    console.log("update " + reply.from + ", delivery status" + cres.body.status);
+    console.log("update " + reply.from + ", delivery status " + cres.body.status);
+    console.log(cres.text);
 
     Reply.update({
       _id : reply._id
