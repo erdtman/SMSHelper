@@ -120,6 +120,9 @@ function process(rows, username, password, channel) {
 }
 
 function createNumber(url, username, password, callback) {
+  password = password || "";
+  username = username || "";
+  
   console.log("creating number for " + url);
   request.post("https://api.46elks.com/a1/Numbers").type('form').send({
     country : "se",
