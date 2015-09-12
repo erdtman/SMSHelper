@@ -38,11 +38,11 @@ exports.index = function(req, res) {
   res.render('index', {});
 };
 
-function send(channel, reply, username, password) {
+function send(from, message, reply, username, password) {
   console.log("sending to " + reply.from);
   request.post("https://api.46elks.com/a1/SMS").type('form').send({
-    message : channel.message,
-    from : channel.from,
+    message : message,
+    from : from,
     to : reply.from
   }).auth(username.trim(), password.trim()).end(function(err, cres) {
     if (err) {
@@ -76,23 +76,15 @@ var P_NR = 2;
 var PHONE_NR = 3;
 
 
-exports.send = function(req, res) {
-  var channel = new Channel({
-    message : req.body.message,
-    from : req.body.from.trim()
-  });
-
-  channel.save(function(err, savedChannel) {
-    if (err) {
-      res.status(500);
-      res.send();
-      return console.error(err);
-    }
-    var index = 0;
-    var rows = req.body.numbers.split("\n")
-
-    var timer = setInterval(function() {
+function process(rows, username, password, channel){
+  var index = 0;
+  var timer = setInterval(function() {
       var row = rows[index++].trim().split(";");
+
+      if(row.length <= PHONE_NR) {
+        console.log("skipping row '" + rows[index++].trim() + "'");
+        return;
+      }
 
       if (index >= rows.length) {
         console.log("No more rows to process");
@@ -109,8 +101,11 @@ exports.send = function(req, res) {
         send : new Date(),
         nr : index
       });
+
       console.log(reply);
       console.log("saving to " + reply.from);
+
+
       reply.save(function(err, savedReply) {
         if (err) {
           return console.error(err);
@@ -118,9 +113,59 @@ exports.send = function(req, res) {
         if (reply.form === "") {
           return console.log("skipping send to empty number");
         }
-        send(channel, savedReply, req.body.username, req.body.password);
+        send(channel.from, channel.message, savedReply, username, password);
       });
     }, 100);
+}
+
+function createNumber(url, username, password, callback) {
+  console.log("creating number for " + url);
+  request.post("https://api.46elks.com/a1/SMS").type('form').send({
+    country : "se",
+    sms_url : url
+  }).auth(username.trim(), password.trim()).end(function(err, cres) {
+    if (err) {
+      return callback(err);
+    }
+
+    if(cres.status != 200) {
+     return callback("bad status in response: " + cres.status); 
+    }
+
+    var body = JSON.parse(cres.text);
+
+    return callback(false, body.number);
+  });
+}
+
+exports.send = function(req, res) {
+  var channel = new Channel({
+    message : req.body.message,
+    from : req.body.from.trim()
+  });
+
+  channel.save(function(err, savedChannel) {
+    if (err) {
+      res.status(500);
+      res.send();
+      return console.error(err);
+    }
+
+    var rows = req.body.numbers.split("\n")
+
+    if(savedChannel.from == "") {
+      createNumber("https://" + reg.hostname + "/result/" + savedChannel._id ,function(error, number) {
+        savedChannel.from = number;
+        savedChannel.update(function(err, uppdatedChannel) {
+          if (err) {
+            return console.error(err);
+          }
+          process(rows, body.req.username, body.req.password, uppdatedChannel);  
+        });
+      });
+    } else {
+      process(rows, body.req.username, body.req.password, savedChannel);
+    }
 
     res.redirect("/result/" + savedChannel._id);
   });
