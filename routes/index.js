@@ -39,8 +39,12 @@ exports.index = function(req, res) {
 };
 
 function send(from, message, reply, username, password) {
+  console.log("b-password " + password);
+  console.log("b-username " + username);
   password = password ? password : "";
   username = username ? username : "";
+  console.log("password " + password);
+  console.log("username " + username);
 
   console.log("Sending message '" + message + "'' to " + reply.from + " from " + from);
   request.post("https://api.46elks.com/a1/SMS").type('form').send({
@@ -52,7 +56,7 @@ function send(from, message, reply, username, password) {
       return console.error(err);
     }
 
-    console.log("update " + reply.from + ", delivery status " + cres.body.status);
+    console.log("update " + reply.from + ", delivery status " + cres.status);
     console.log(cres.text);
 
     Reply.update({
