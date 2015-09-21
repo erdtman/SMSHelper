@@ -273,7 +273,8 @@ exports.resend = function(req, res) {
       var index = 0;
       var timer = setInterval(function() {
         var reply = replies[index++];
-        if (reply.message !== "<waiting>") {
+
+        if (!reply || reply.message !== "<waiting>") {
           return;
         }
 
