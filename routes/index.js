@@ -277,13 +277,19 @@ exports.resend = function(req, res) {
           return;
         }
 
+        if (reply.status !== 200) {
+          console.log("aborting resent to " + reply.from);
+          return;
+        }
+
+
         if(index >= replies.length) {
           console.log("Nothing more to resend");
           clearTimeout(timer);
         }
 
         console.log("Resending for real: " + reply.status + ": " + reply.from);
-        send(channel.from, channel.message, reply, req.body.username, req.body.password);
+        //send(channel.from, channel.message, reply, req.body.username, req.body.password);
       }, 100);
       
       res.redirect("/result/" + channel._id);
