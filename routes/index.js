@@ -278,7 +278,7 @@ exports.resend = function(req, res) {
           return;
         }
 
-        if (reply.status !== 200 || reply.status !== 401) {
+        if (reply.status !== 200 && reply.status !== 401) {
           console.log("aborting resent to " + reply.from);
           return;
         }
