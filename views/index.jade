@@ -18,7 +18,7 @@ block content
   div(class="form-group")
    label(for="from" class="col-sm-2 control-label") From
    div(class="col-sm-10")
-    input(type="text" class="form-control" id="from" name="from")
+    input(type="text" class="form-control" id="from" name="from" placeholder="Leave empty and a number will be created")
   div(class="form-group")
    label(for="message" class="col-sm-2 control-label") Message
    div(class="col-sm-10")
@@ -27,7 +27,7 @@ block content
    label(for="members" class="col-sm-2 control-label") Members list
    div(class="col-sm-10")
     input(type="file" id="members" name="members")
-    p(class="help-block") Excel document with member list, first row with column names.
+    p(class="help-block") Excel document with member list, first row with column names. Column with header 'number' will be used for telephone number.
 
   div(class="form-group")
    div(class="col-sm-offset-2 col-sm-10")
