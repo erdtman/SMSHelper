@@ -42,7 +42,7 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/result/:channel', routes.result);
 app.post('/result/:channel', routes.sms);
-app.get('/result/:channel/download', routes.download);
+app.get('/result/:channel/result.xlsx', routes.download);
 app.post('/resend/:channel', routes.resend);
 app.post('/send', upload.single('members'), routes.send);
 
