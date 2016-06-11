@@ -20,8 +20,7 @@ module.exports = function(username, password) {
       }
 
       if(cres.status != 200) {
-        console.log("Status: " + cres.status);
-        console.log(cres);
+        console.log("SENDER - status: " + cres.status + ", error: " + cres.text);
         row.setStatusFailed();
         return deferred.reject(new Error("Bad response status, " + cres.status));
       }
@@ -71,6 +70,7 @@ module.exports = function(username, password) {
         }
 
         if(cres.status != 200) {
+          console.log("CREATE_NUMBER - status: " + cres.status + ", error: " + cres.text);
           return deferred.reject(new Error("bad status in response: " + cres.status));
         }
 
