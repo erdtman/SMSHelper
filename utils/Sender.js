@@ -20,6 +20,8 @@ module.exports = function(username, password) {
       }
 
       if(cres.status != 200) {
+        console.log("Status: " + cres.status);
+        console.log(cres);
         row.setStatusFailed();
         return deferred.reject(new Error("Bad response status, " + cres.status));
       }
