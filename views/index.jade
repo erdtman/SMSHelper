@@ -4,9 +4,9 @@ block header
   title SMS Helper | Send
 
 block content
- h1 SMS Helper
- 
- form(action="send" method="post" class="form-horizontal well" role="form")
+ h1
+
+ form(action="send" method="post" class="form-horizontal well" role="form" enctype="multipart/form-data")
   div(class="form-group")
    label(for="username" class="col-sm-2 control-label") Username
    div(class="col-sm-10")
@@ -24,13 +24,14 @@ block content
    div(class="col-sm-10")
     textarea(class="form-control" rows="3" id="message" name="message")
   div(class="form-group")
-   label(for="numbers" class="col-sm-2 control-label") Numbers
+   label(for="members" class="col-sm-2 control-label") Members list
    div(class="col-sm-10")
-    textarea(class="form-control" rows="3" id="numbers" name="numbers")
+    input(type="file" id="members" name="members")
+    p(class="help-block") Excel document with member list, first row with column names.
+
   div(class="form-group")
    div(class="col-sm-offset-2 col-sm-10")
     button(type="submit" class="btn btn-primary") Send
 
 
 block footer
- 
