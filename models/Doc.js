@@ -1,7 +1,7 @@
 'use strict';
 
 let XLSX = require('xlsx');
-let Q = require('Q');
+let Q = require('q');
 var ObjectId = require('mongodb').ObjectID;
 
 let db = require('../db');

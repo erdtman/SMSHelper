@@ -1,6 +1,6 @@
 'use strict';
 
-let Q = require('Q');
+let Q = require('q');
 var ObjectId = require('mongodb').ObjectID;
 
 let Doc = require('../models/Doc.js');
@@ -22,7 +22,7 @@ exports.send = function(req, res) {
   let message = req.body.message || "";
   let sender = new Sender(username, password);
   let doc = Doc.parse(members);
-  
+
   doc.setMessage(message);
   doc.save().then(function(doc) {
     console.log("SEND - Saved step 1, " + doc.getId());

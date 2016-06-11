@@ -1,6 +1,6 @@
 'use strict';
 
-let Q = require('Q');
+let Q = require('q');
 let request = require('superagent');
 
 module.exports = function(username, password) {

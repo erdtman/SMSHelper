@@ -1,6 +1,6 @@
 'use strict';
 
-let Q = require('Q');
+let Q = require('q');
 
 let Row = require('./Row.js');
 let Itterator = require('../utils/Itterator.js');
